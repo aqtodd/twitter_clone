@@ -15,3 +15,10 @@
 /log/*
 !/log/.keep
 /tmp
+
+#ignore spring director
+/spring/*.pid
+
+#ignore vim swapfiles
+*.swp
+
