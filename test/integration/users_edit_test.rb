@@ -34,12 +34,14 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     get edit_user_path(@user)
     log_in_as(@user)
     assert_redirected_to edit_user_path(@user)
+    assert session[:forwarding_url] == nil
     name = "Test Name"
     email = "test@email.edu"
     patch user_path(@user), user: { name: name, email: email,
                                     password: "password", password_confirmation: "password" } 
     assert_not flash.empty?
     assert_redirected_to @user
+    assert_not session[:forwarding_url]  # confirm redirect_url has been deleted from session cookies
     @user.reload
     assert_equal @user.name, name
     assert_equal @user.email, email
